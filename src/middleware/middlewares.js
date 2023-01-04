@@ -177,7 +177,6 @@ export const shareFile = async (req, res, next) => {
   const uid = req.params.userID
   if ('auth0|' + uid !== req.auth.payload.sub) next(createError(401))
   const ruid = req.body.recipient
-  console.log(req.body)
 
   // Get the file
   const filePath = '/data/' + uid + '/data/' + req.params.filePath

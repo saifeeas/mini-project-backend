@@ -34,6 +34,7 @@ app.use(compression())
 app.use(logger('dev'))
 app.use(responseTime())
 app.use(json());
+app.use(express.urlencoded({extended: true}))
 app.set("json spaces", 2);
 
 app.use(
@@ -58,8 +59,8 @@ app.use(nocache());
 
 app.use(
   cors({
-    origin: CLIENT_ORIGIN_URL,
-    methods: ["GET", "POST"],
+    origin: [CLIENT_ORIGIN_URL, 'https://vaultchain.asaifee.ml'],
+    methods: ["GET", "POST", "DELETE"],
     allowedHeaders: ["Authorization", "Content-Type"],
     maxAge: 86400,
   })

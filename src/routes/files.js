@@ -25,7 +25,7 @@ router.get('/', listUserFiles, async (req, res) => {
   //   return file
   // })
 
-  res.status(200).json({files: await req.ipfs.files})
+  res.status(200).json(await req.ipfs.files)
 })
 
 const mds = [upload.array('uploaded_files'), signEncryptStore]
