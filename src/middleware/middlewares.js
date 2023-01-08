@@ -66,7 +66,7 @@ const updateAppMetadata = async (token = "", user_id = "") => {
 
 export const checkOrCreateKeys = async (user_id) => {
   console.log('👉 checkOrCreateKeys called ...')
-  const user = user_id.replace('auth0|','')
+  const user = user_id.replace(/.*\|/,'')
   const token = await getToken()
   const hasKey = await getAppMetadata(token, user_id)
 
@@ -88,7 +88,7 @@ export const checkOrCreateKeys = async (user_id) => {
 }
 
 export const signEncryptStore = async (req, res, next) => {
-  const key = req.auth.payload.sub.replace('auth0|','')
+  const key = req.auth.payload.sub.replace('/.*\|/','')
   
   const sign_input = req.files.map(file => {
     return {
@@ -114,7 +114,7 @@ export const signEncryptStore = async (req, res, next) => {
 }
 
 export const listUserFiles = async (req, res, next) => {
-  const key = req.auth.payload.sub.replace('auth0|','')
+  const key = req.auth.payload.sub.replace('/.*\|/','')
   const allFiles = []
 
   const listFiles = async (path = '') => {

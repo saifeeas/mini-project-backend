@@ -15,15 +15,7 @@ import { validateAccessToken } from "./middleware/auth0.js";
 import errorHandler from "./middleware/error.js";
 import notFoundHandler from "./middleware/not-found.js";
 
-if (!(process.env.PORT && process.env.CLIENT_ORIGIN_URL)) {
-  throw new Error(
-    "Missing required environment variables."
-  );
-}
-
-const PORT = parseInt(process.env.PORT, 10);
-const CLIENT_ORIGIN_URL = process.env.CLIENT_ORIGIN_URL;
-
+const PORT = parseInt(process.env.PORT, 10) || 80;
 const app = express();
 const apiRouter = Router();
 
@@ -59,7 +51,7 @@ app.use(nocache());
 
 app.use(
   cors({
-    origin: [CLIENT_ORIGIN_URL, 'https://vaultchain.asaifee.ml'],
+    origin: ['http://localhost:3000', 'https://vaultchain.asaifee.ml', 'https://vaultchain.pages.dev'],
     methods: ["GET", "POST", "DELETE"],
     allowedHeaders: ["Authorization", "Content-Type"],
     maxAge: 86400,
